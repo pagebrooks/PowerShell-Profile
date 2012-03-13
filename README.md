@@ -13,5 +13,5 @@ Features
 --------
 -Customized Font
 -Support for Posh-Git
--Auto-add child paths for directories in $HOME/bin
+-Auto-add child paths to PATH for directories in C:\Dev\Utils
 -Utility Functions
