@@ -1,6 +1,11 @@
 $gitInstallDir = 'C:\Program Files (x86)\Git\'
 $Env:HOME = $Env:USERPROFILE
-$Env:Path = "C:\Dev\Utils\nano-2.0.3;$gitInstallDir\cmd;$gitInstallDir\mingw\bin;$Env:Path"
+$Env:Path = "$gitInstallDir\cmd;$gitInstallDir\mingw\bin;$Env:Path"
+
+# Loop through the Utils directory and add each child directory to the path variable.
+$paths = @("$($env:Path)")
+gci "C:\Dev\Utils" | % { $paths += $_.FullName }
+$Env:Path = [String]::Join(";", $paths)
 
 function touch($file) { "" | Out-File $file -Encoding ASCII }
 
