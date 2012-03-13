@@ -34,7 +34,7 @@ function prompt {
    $global:GitStatus = Get-GitStatus
    Write-GitStatus $GitStatus
    
-   write-host ' $' -n -f $cdelim 
+   write-host "`r`n$" -n -f $cdelim 
    return ' ' 
 }
 
