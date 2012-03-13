@@ -1,6 +1,6 @@
 $gitInstallDir = 'C:\Program Files (x86)\Git\'
 $Env:HOME = $Env:USERPROFILE
-$Env:Path = "$gitInstallDir\cmd;$gitInstallDir\mingw\bin;$Env:Path"
+$Env:Path = "C:\Dev\Utils\nano-2.0.3;$gitInstallDir\cmd;$gitInstallDir\mingw\bin;$Env:Path"
 
 function touch($file) { "" | Out-File $file -Encoding ASCII }
 
