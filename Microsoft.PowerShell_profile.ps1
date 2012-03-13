@@ -1,3 +1,5 @@
+$here = Split-Path -Parent $MyInvocation.MyCommand.Path
+
 $gitInstallDir = 'C:\Program Files (x86)\Git\'
 $Env:HOME = $Env:USERPROFILE
 $Env:Path = "$gitInstallDir\cmd;$gitInstallDir\mingw\bin;$Env:Path"
@@ -24,7 +26,7 @@ function prompt {
    
    $cdelim = [ConsoleColor]::DarkCyan 
    $chost = [ConsoleColor]::Green 
-   $cloc = [ConsoleColor]::Cyan 
+   $cloc = [ConsoleColor]::Cyan    
 
    $hostName = [net.dns]::GetHostName()
    $machineName = $hostName
