@@ -9,9 +9,14 @@ $paths = @("$($env:Path)")
 gci "C:\Dev\Utils" | % { $paths += $_.FullName }
 $Env:Path = [String]::Join(";", $paths)
 
-function touch($file) { "" | Out-File $file -Encoding ASCII }
+Import-Module $here\Modules\posh-git
+Import-Module $here\Modules\pester
+Import-Module $here\Modules\psake
 
-Import-Module $Env:HOME\Documents\WindowsPowerShell\Modules\posh-git
+# Handy functions
+function touch($file) { "" | Out-File $file -Encoding ASCII }
+function Coalesce-Args { (@($args | ?{$_ -ne $null}) + $null)[0] }
+Set-Alias ?? Coalesce-Args
 
 function shorten-path([string] $path) { 
    $loc = $path.Replace($HOME, '~') 
@@ -21,6 +26,26 @@ function shorten-path([string] $path) {
    # handle paths starting with \\ and . correctly 
    return ($loc -replace '\\(\.?)([^\\])[^\\]*(?=\\)','\$1$2') 
 }
+
+function Reload-Module($ModuleName) {
+	if((get-module -list | where{$_.name -eq "$ModuleName"} | measure-object).count -gt 0)
+	{
+	 
+		if((get-module -all | where{$_.Name -eq "$ModuleName"} | measure-object).count -gt 0)
+		{
+			rmo $ModuleName
+			Write-Host "Module $ModuleName Unloading"
+		}
+	 
+		ipmo $ModuleName
+		Write-Host "Module $ModuleName Loaded"
+	}
+	else
+	{
+		Write-Host "Module $ModuleName Doesn't Exist"
+	}
+}
+New-Alias -Name rlo -Value Reload-Module
 
 function prompt { 
    
