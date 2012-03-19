@@ -3,11 +3,17 @@ PowerShell Profile
 
 Install msysgit from: http://code.google.com/p/msysgit
 
-Install this profile as your default profile by cloning into your 
+From Git Bash, install this profile as your default profile by cloning into your 
 PowerShell directory:
 
 ```
-git clone git@github.com:pagebrooks/PowerShell-Profile.git $Env:UserProfile\Documents\WindowsPowerShell
+git clone git@github.com:pagebrooks/PowerShell-Profile.git $HOME\\Documents\\WindowsPowerShell
+```
+
+From the PowerShell command prompt, install PsGet with the following command:
+
+```
+(new-object Net.WebClient).DownloadString("http://psget.net/GetPsGet.ps1") | iex
 ```
 
 Features
