@@ -1,6 +1,8 @@
 PowerShell Profile
 ==================
 
+Install msysgit from: http://code.google.com/p/msysgit
+
 Install this profile as your default profile by cloning into your 
 PowerShell directory:
 
