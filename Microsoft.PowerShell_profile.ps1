@@ -10,7 +10,6 @@ gci "C:\Dev\Utils" | % { $paths += $_.FullName }
 $Env:Path = [String]::Join(";", $paths)
 
 Import-Module $here\Modules\posh-git
-Import-Module $here\Modules\pester
 Import-Module $here\Modules\psake
 
 # Handy functions
@@ -72,4 +71,8 @@ function prompt {
 
 Enable-GitColors
 
+
+
+# Load posh-git example profile
+. 'C:\Users\Page\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1'
 
