@@ -2,7 +2,7 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 $gitInstallDir = 'C:\Program Files (x86)\Git\'
 $Env:HOME = $Env:USERPROFILE
-$Env:Path = "$gitInstallDir\cmd;$gitInstallDir\mingw\bin;$Env:Path"
+$Env:Path = "$gitInstallDir\cmd;$gitInstallDir\bin;$gitInstallDir\mingw\bin;$Env:Path"
 
 # Loop through the Utils directory and add each child directory to the path variable.
 $paths = @("$($env:Path)")
@@ -22,7 +22,7 @@ function shorten-path([string] $path) {
    # remove prefix for UNC paths 
    $loc = $loc -replace '^[^:]+::', '' 
    # make path shorter like tabs in Vim, 
-   # handle paths starting with \\ and . correctly 
+   # handle paths sing with \\ and . correctly 
    return ($loc -replace '\\(\.?)([^\\])[^\\]*(?=\\)','\$1$2') 
 }
 
@@ -70,9 +70,4 @@ function prompt {
 }
 
 Enable-GitColors
-
-
-
-# Load posh-git example profile
-. 'C:\Users\Page\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1'
 
