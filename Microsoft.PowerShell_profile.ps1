@@ -10,12 +10,12 @@ gci "C:\Dev\Utils" | % { $paths += $_.FullName }
 $Env:Path = [String]::Join(";", $paths)
 
 Import-Module $here\Modules\posh-git
-Import-Module $here\Modules\psake
 
 # Handy functions
 function touch($file) { "" | Out-File $file -Encoding ASCII }
 function Coalesce-Args { (@($args | ?{$_ -ne $null}) + $null)[0] }
 Set-Alias ?? Coalesce-Args
+Set-Alias npp "C:\Program Files (x86)\Notepad++\notepad++.exe"
 
 function shorten-path([string] $path) { 
    $loc = $path.Replace($HOME, '~') 
@@ -70,4 +70,7 @@ function prompt {
 }
 
 Enable-GitColors
+
+# Load posh-git example profile
+. "$home\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
 
