@@ -4,12 +4,8 @@ $gitInstallDir = 'C:\Program Files (x86)\Git\'
 $Env:HOME = $Env:USERPROFILE
 $Env:Path = "$gitInstallDir\cmd;$gitInstallDir\bin;$gitInstallDir\mingw\bin;$Env:Path"
 
-# Loop through the Utils directory and add each child directory to the path variable.
-$paths = @("$($env:Path)")
-gci "C:\Dev\Utils" | % { $paths += $_.FullName }
-$Env:Path = [String]::Join(";", $paths)
-
-Import-Module $here\Modules\posh-git
+Set-Alias vi "C:\Program Files (x86)\Vim\vim74\gvim.exe"
+Set-Alias vim "C:\Program Files (x86)\Vim\vim74\gvim.exe"
 
 # Handy functions
 function touch($file) { "" | Out-File $file -Encoding ASCII }
@@ -69,8 +65,6 @@ function prompt {
    return ' ' 
 }
 
-Enable-GitColors
-
 # Load posh-git example profile
-. "$home\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
-
+#. "$home\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
+. 'C:\tools\poshgit\dahlbyk-posh-git-b3cb9b6\profile.example.ps1'
