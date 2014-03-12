@@ -13,6 +13,21 @@ function Coalesce-Args { (@($args | ?{$_ -ne $null}) + $null)[0] }
 Set-Alias ?? Coalesce-Args
 Set-Alias npp "C:\Program Files (x86)\Notepad++\notepad++.exe"
 
+function profile-edit() {
+   vim ~\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+}
+
+function profile-git-pull() {
+   $a = Get-Location
+   cd ~\Documents\WindowsPowerShell
+   git pull origin master
+   cd $a
+}
+
+function profile-directory() {
+   cd ~\Documents\WindowsPowerShell
+}
+
 function shorten-path([string] $path) { 
    $loc = $path.Replace($HOME, '~') 
    # remove prefix for UNC paths 
