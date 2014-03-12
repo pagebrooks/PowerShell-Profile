@@ -18,10 +18,10 @@ function profile-edit() {
 }
 
 function profile-git-pull() {
-   $a = Get-Location
+   Push-Location Get-Location
    cd ~\Documents\WindowsPowerShell
    git pull origin master
-   cd $a
+   Pop-Location
 }
 
 function profile-directory() {
@@ -36,26 +36,6 @@ function shorten-path([string] $path) {
    # handle paths sing with \\ and . correctly 
    return ($loc -replace '\\(\.?)([^\\])[^\\]*(?=\\)','\$1$2') 
 }
-
-function Reload-Module($ModuleName) {
-	if((get-module -list | where{$_.name -eq "$ModuleName"} | measure-object).count -gt 0)
-	{
-	 
-		if((get-module -all | where{$_.Name -eq "$ModuleName"} | measure-object).count -gt 0)
-		{
-			rmo $ModuleName
-			Write-Host "Module $ModuleName Unloading"
-		}
-	 
-		ipmo $ModuleName
-		Write-Host "Module $ModuleName Loaded"
-	}
-	else
-	{
-		Write-Host "Module $ModuleName Doesn't Exist"
-	}
-}
-New-Alias -Name rlo -Value Reload-Module
 
 function prompt { 
    
@@ -79,7 +59,29 @@ function prompt {
    write-host "`r`n$" -n -f $cdelim 
    return ' ' 
 }
-
 # Load posh-git example profile
 #. "$home\Documents\WindowsPowerShell\Modules\posh-git\profile.example.ps1"
-. 'C:\tools\poshgit\dahlbyk-posh-git-b3cb9b6\profile.example.ps1'
+#. 'C:\tools\poshgit\dahlbyk-posh-git-b3cb9b6\profile.example.ps1'
+
+Push-Location (Split-Path -Path $MyInvocation.MyCommand.Definition -Parent)
+Import-Module .\posh-git\posh-git
+
+function prompt {
+    $realLASTEXITCODE = $LASTEXITCODE
+
+    # Reset color, which can be messed up by Enable-GitColors
+    $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
+
+    Write-Host($pwd) -nonewline
+
+    Write-VcsStatus
+
+    $global:LASTEXITCODE = $realLASTEXITCODE
+    return "> "
+}
+
+Enable-GitColors
+
+Pop-Location
+
+Start-SshAgent -Quiet
